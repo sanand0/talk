@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>imaging.py</title>
+  <link rel="stylesheet" href="pycco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>imaging.py</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-0'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-0">#</a>
+        </div>
+        <h2>Image generation via Python Image Library</h2>
+<p>Let's say we want to plot the Bank of England's historical interest rates
+as a graph.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-1'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-1">#</a>
+        </div>
+        <p>Load the <a href="https://spreadsheets.google.com/ccc?key=0AonYZs4MzlZbcGhOdG0zTG1EWkVQTjBYWm9pWHVRWkE">Bank of England historical interest rates
+</a></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="kn">import</span> <span class="nn">urllib</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://spreadsheets.google.com/pub?</span><span class="se">\</span>
+<span class="s">key=0AonYZs4MzlZbcGhOdG0zTG1EWkVQTjBYWm9pWHVRWkE&amp;</span><span class="se">\</span>
+<span class="s">output=csv&amp;</span><span class="se">\</span>
+<span class="s">range=B2:B3798&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)]</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-2'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-2">#</a>
+        </div>
+        <p>Load the Python Image Library</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="kn">import</span> <span class="nn">Image</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-3'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-3">#</a>
+        </div>
+        <p>Configure the output path</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os.path</span>
+<span class="n">outpath</span> <span class="o">=</span> <span class="s">&#39;../../talk-gh-pages&#39;</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-4'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-4">#</a>
+        </div>
+        <p>Create a new RGB image of width 316 px (for 316 years of data)
+with color #E0E0E0</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s">&#39;RGB&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">316</span><span class="p">,</span> <span class="mi">220</span><span class="p">),</span> <span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-5'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-5">#</a>
+        </div>
+        <p>Save the image as a PNG. The extension determines the file type.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;image-0.png&#39;</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-6'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-6">#</a>
+        </div>
+        <p>Here's the result:</p>
+<p><img alt="Result" src="image-0.png" /></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-7'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-7">#</a>
+        </div>
+        <p>Now let' draw axes.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-8'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-8">#</a>
+        </div>
+        <p>Import the ImageDraw library that lets us draw on images</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ImageDraw</span>
+<span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-9'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-9">#</a>
+        </div>
+        <p>Draw a line every 50 pixels. We'll use y = 0 - 200 to plot 0 - 20% rates.</p>
+<p>draw.line takes ((x1,y1), (x2,y2)) as a parameter. By default, it draws
+a white line.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="mi">50</span><span class="p">))</span> <span class="p">)</span>
+<span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">100</span><span class="p">))</span> <span class="p">)</span>
+<span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">150</span><span class="p">),</span> <span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">150</span><span class="p">))</span> <span class="p">)</span>
+<span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">200</span><span class="p">))</span> <span class="p">)</span>
+<span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;image-1.png&#39;</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-10'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-10">#</a>
+        </div>
+        <p>Here's the result:</p>
+<p><img alt="Result" src="image-1.png" /></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-11'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-11">#</a>
+        </div>
+        <p>Now let's draw the actual graph.
+draw.line takes a fill= parameter where you can specify the colour.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">[::</span><span class="mi">12</span><span class="p">]):</span>
+    <span class="n">draw</span><span class="o">.</span><span class="n">line</span><span class="p">(((</span><span class="n">i</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">200</span><span class="o">-</span><span class="n">rate</span><span class="o">*</span><span class="mi">10</span><span class="p">)),</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">108</span><span class="p">,</span><span class="mi">108</span><span class="p">,</span><span class="mi">108</span><span class="p">))</span>
+<span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;image-2.png&#39;</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-12'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-12">#</a>
+        </div>
+        <p>Here's the result:</p>
+<p><img alt="Result" src="image-2.png" /></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-13'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-13">#</a>
+        </div>
+        <p>Now we'll text labels for the years</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ImageFont</span>
+<span class="n">font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="s">&quot;C:/SYSROOT/Fonts/arial.ttf&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">[::</span><span class="mi">12</span><span class="p">]):</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="mi">1694</span> <span class="o">+</span> <span class="n">i</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">year</span> <span class="o">%</span> <span class="mi">50</span><span class="p">:</span>
+        <span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">i</span> <span class="o">-</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;image-3.png&#39;</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-14'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-14">#</a>
+        </div>
+        <p><img alt="Result" src="image-3.png" /></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-15'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-15">#</a>
+        </div>
+        <h2>Image processing via Python Image Library</h2>
+<p>PIL lets you manipulate the images as well. This is best shown via demos.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;sample.jpg&#39;</span><span class="p">)</span>
+<span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;sample.png&#39;</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-16'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-16">#</a>
+        </div>
+        <p><img alt="Result" src="sample.png" /></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-17'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-17">#</a>
+        </div>
+        <p>Resize it</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span><span class="mi">150</span><span class="p">))</span>
+<span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;small.png&#39;</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-18'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-18">#</a>
+        </div>
+        <p><img alt="Result" src="small.png" /></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-19'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-19">#</a>
+        </div>
+        <p>Brighten and saturate the image</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ImageEnhance</span>
+<span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Brightness</span><span class="p">(</span><span class="n">img</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;bright.png&#39;</span><span class="p">))</span>
+<span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">img</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;color.png&#39;</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-20'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-20">#</a>
+        </div>
+        <p><img alt="Result" src="bright.png" />
+<img alt="Result" src="color.png" /></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-21'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-21">#</a>
+        </div>
+        <p>For more samples, see
+<a href="http://ngimage.co.uk/dynamic/doc?image=spin-01.png&amp;size">ngimage</a></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-22'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-22">#</a>
+        </div>
+        <p>Emboss it, or trace contours</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="kn">import</span> <span class="nn">ImageFilter</span>
+<span class="n">img</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">EMBOSS</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;emboss.png&#39;</span><span class="p">))</span>
+<span class="n">img</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">ImageFilter</span><span class="o">.</span><span class="n">CONTOUR</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;contour.png&#39;</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-23'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-23">#</a>
+        </div>
+        <p><img alt="Result" src="emboss.png" />
+<img alt="Result" src="contour.png" /></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-24'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-24">#</a>
+        </div>
+        <h2>Image generation via SVG</h2>
+<p>Another option is to use SVG to render the file.
+This makes it look better on print.</p>
+<p>Some sample reports created this way are at
+<a href="http://blog.reportbee.com/visualising-student-performance">Report Bee</a> and
+<a href="blog.klp.org.in/2011/01/visualizing-student-performance.html">KLP</a>.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-25'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-25">#</a>
+        </div>
+        <p>We'll use tornado templates to render the file</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="kn">from</span> <span class="nn">tornado</span> <span class="kn">import</span> <span class="n">template</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-26'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-26">#</a>
+        </div>
+        <p>Create a basic template that'll draw a grey box</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="n">svg</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;&lt;svg width=&quot;316&quot; height=&quot;220&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;</span>
+<span class="s">&lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;316&quot; height=&quot;220&quot; style=&quot;fill:#e0e0e0&quot;/&gt;&#39;&#39;&#39;</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-27'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-27">#</a>
+        </div>
+        <p>Add the axes</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="n">svg</span> <span class="o">+=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">&lt;line x1=&quot;0&quot; x2=&quot;316&quot; y1=&quot;50&quot; y2=&quot;50&quot; stroke-width=&quot;1&quot; stroke=&quot;#fff&quot;/&gt;</span>
+<span class="s">&lt;line x1=&quot;0&quot; x2=&quot;316&quot; y1=&quot;100&quot; y2=&quot;100&quot; stroke-width=&quot;1&quot; stroke=&quot;#fff&quot;/&gt;</span>
+<span class="s">&lt;line x1=&quot;0&quot; x2=&quot;316&quot; y1=&quot;150&quot; y2=&quot;150&quot; stroke-width=&quot;1&quot; stroke=&quot;#fff&quot;/&gt;</span>
+<span class="s">&lt;line x1=&quot;0&quot; x2=&quot;316&quot; y1=&quot;200&quot; y2=&quot;200&quot; stroke-width=&quot;1&quot; stroke=&quot;#fff&quot;/&gt;&#39;&#39;&#39;</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-28'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-28">#</a>
+        </div>
+        <p>Add the graph</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="n">svg</span> <span class="o">+=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">{</span><span class="si">% f</span><span class="s">or (i, rate) in enumerate(data[::12]) %}</span>
+<span class="s"> &lt;rect x=&quot;{{ i }}&quot; width=&quot;1&quot; y=&quot;{{ 200 - rate*10 }}&quot; height=&quot;{{ rate*10 }}&quot;</span>
+<span class="s">  fill=&quot;#6c6c6c&quot; stroke-width=&quot;0.1&quot; stroke=&quot;#fff&quot; /&gt;</span>
+<span class="s">{</span><span class="si">% e</span><span class="s">nd %}&#39;&#39;&#39;</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-29'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-29">#</a>
+        </div>
+        <p>Add the labels</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="n">svg</span> <span class="o">+=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">&lt;g style=&quot;font-family:Arial;font-size:10px&quot;&gt;</span>
+<span class="s">{</span><span class="si">% f</span><span class="s">or (i, rate) in enumerate(data[::12]) %}</span>
+<span class="s">  {</span><span class="si">% s</span><span class="s">et year = 1694 + i %}</span>
+<span class="s">  {</span><span class="si">% i</span><span class="s">f not year % 50 %}</span>
+<span class="s">    &lt;text x=&quot;{{ i-12 }}&quot; y=&quot;200&quot; style=&quot;dominant-baseline:hanging&quot;&gt;</span>
+<span class="s">      {{ year }}</span>
+<span class="s">    &lt;/text&gt;</span>
+<span class="s">  {</span><span class="si">% e</span><span class="s">nd %}</span>
+<span class="s">{</span><span class="si">% e</span><span class="s">nd %}</span>
+<span class="s">&lt;/g&gt;&lt;/svg&gt;&#39;&#39;&#39;</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-30'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-30">#</a>
+        </div>
+        <p>Generate the template and write the data</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">outpath</span><span class="p">,</span> <span class="s">&#39;graph.svg&#39;</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">Template</span><span class="p">(</span><span class="n">svg</span><span class="p">)</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">))</span></pre></div></pre></div>
+      </td>
+    </tr><tr id='section-31'>
+      <td class=docs>
+        <div class="octowrap">
+          <a class="octothorpe" href="#section-31">#</a>
+        </div>
+        <p>Here's the result:</p>
+<p><embed src="graph.svg" width="316" height="220"></embed></p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><div class="highlight"><pre></pre></div></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
