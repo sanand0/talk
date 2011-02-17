@@ -18,7 +18,7 @@ import Image
 
 # Configure the output path
 import os.path
-outpath = '../../talk-gh-pages'
+outpath = '../../talk-docs/python-imaging'
 
 # Create a new RGB image of width 316 px (for 316 years of data)
 # with color #E0E0E0
